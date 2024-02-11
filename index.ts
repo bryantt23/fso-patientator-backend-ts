@@ -1,8 +1,11 @@
 import express from 'express';
+import cors from 'cors';
 import diagnosisService from './services/diagnosisService';
+import patientService from './services/patientService';
 
 const app = express();
 app.use(express.json());
+app.use(cors()); // Enable CORS for all routes
 
 const PORT = 3001;
 
@@ -13,6 +16,10 @@ app.get('/api/ping', (_req, res) => {
 
 app.get('/api/diagnoses', (_req, res) => {
     res.send(diagnosisService.getEntries())
+});
+
+app.get('/api/patients', (_req, res) => {
+    res.send(patientService.getEntries())
 });
 
 app.listen(PORT, () => {
