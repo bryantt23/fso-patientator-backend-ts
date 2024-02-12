@@ -42,7 +42,7 @@ app.post('/api/patients/:id/entries', (req, res) => {
                 }
                 break;
             case 'Hospital':
-                if (!entry.discharge || !entry.discharge.date || !entry.discharge.criteria) {
+                if (!entry.dischargeDate || !entry.dischargeCriteria) {
                     throw new Error('Missing discharge information for Hospital entry');
                 }
                 break;
