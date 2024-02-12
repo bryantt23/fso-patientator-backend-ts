@@ -27,6 +27,21 @@ app.get('/api/patients', (_req, res) => {
     res.send(patientService.getEntries())
 });
 
+app.post('/api/patients/:id/entries', (req, res) => {
+    try {
+        const id = req.params.id
+        const entry = req.body
+        const updatedPatient = patientService.updatePatientEntry(id, entry)
+        res.json(updatedPatient);
+    } catch (error: unknown) {
+        let errorMessage = 'Something went wrong.';
+        if (error instanceof Error) {
+            errorMessage += ' Error: ' + error.message;
+        }
+        res.status(400).send(errorMessage);
+    }
+});
+
 app.post('/api/patients', (req, res) => {
     try {
         const newDiaryEntry = toNewPatientEntry(req.body);
