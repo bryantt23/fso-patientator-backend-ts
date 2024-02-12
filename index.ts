@@ -19,6 +19,10 @@ app.get('/api/diagnoses', (_req, res) => {
     res.send(diagnosisService.getEntries())
 });
 
+app.get('/api/patients/:id', (req, res) => {
+    res.send(patientService.getPatient(req.params.id))
+});
+
 app.get('/api/patients', (_req, res) => {
     res.send(patientService.getEntries())
 });
