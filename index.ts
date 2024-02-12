@@ -37,8 +37,8 @@ app.post('/api/patients/:id/entries', (req, res) => {
         // Validate the entry type and required fields based on the type
         switch (entry.type) {
             case 'HealthCheck':
-                if (!entry.description || entry.date) {
-                    throw new Error('Missing data for HealthCheck entry');
+                if (!entry.description || !entry.date) {
+                    throw new Error('Missing description or date for HealthCheck entry');
                 }
                 break;
             case 'Hospital':
