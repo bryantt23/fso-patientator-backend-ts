@@ -30,13 +30,15 @@ app.get('/api/patients', (_req, res) => {
 app.post('/api/patients/:id/entries', (req, res) => {
     try {
         const patientId = req.params.id;
+        console.log("🚀 ~ app.post ~ patientId:", patientId)
         const entry = req.body;
+        console.log("🚀 ~ app.post ~ entry:", entry)
 
         // Validate the entry type and required fields based on the type
         switch (entry.type) {
             case 'HealthCheck':
-                if (!entry.healthCheckRating && entry.healthCheckRating !== 0) {
-                    throw new Error('Missing healthCheckRating for HealthCheck entry');
+                if (!entry.description || entry.date) {
+                    throw new Error('Missing data for HealthCheck entry');
                 }
                 break;
             case 'Hospital':
