@@ -22,16 +22,27 @@ const addPatient = (entry: NewPatientEntry): Patient => {
     return newPatientEntry;
 };
 
+// Add a function to validate and create a new entry
+const addEntryToPatient = (patientId: string, entry: Entry): Patient => {
+    const patient = patients.find(p => p.id === patientId);
+    if (!patient) {
+        throw new Error('Patient not found');
+    }
 
-const updatePatientEntry = (patientId: string, entry: Entry): Patient => {
-    const patientToUpdate = patients.find(patient => patient.id === patientId)
-    patientToUpdate?.entries.push(entry)
-    return patientToUpdate;
+    // Assuming each entry has a unique ID, you would generate it here
+    const entryWithId = {
+        ...entry,
+        id: uuid() // Use a library like uuid to generate a new ID
+    };
+
+    patient.entries.push(entryWithId);
+
+    return patient;
 };
 
 export default {
     getEntries,
     addPatient,
     getPatient,
-    updatePatientEntry
+    addEntryToPatient
 };
