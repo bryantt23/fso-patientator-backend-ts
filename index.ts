@@ -22,6 +22,18 @@ app.get('/api/patients', (_req, res) => {
     res.send(patientService.getEntries())
 });
 
+app.post('/api/patients', (req, res) => {
+    const { name, dateOfBirth, ssn, gender, occupation } = req.body;
+    const addedEntry = patientService.addPatient({
+        name,
+        dateOfBirth,
+        ssn,
+        gender,
+        occupation
+    });
+    res.json(addedEntry);
+});
+
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
